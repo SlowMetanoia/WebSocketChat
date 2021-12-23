@@ -1,0 +1,19 @@
+@(username:String)(implicit flash: Flash,requestHeader: RequestHeader)
+
+@main("Web socket Chat"){
+    <div align="right">
+        <h5>
+            <a href="@routes.LogInController.logout" >Logout</a>
+        </h5>
+    </div>
+    <div align="left">
+        <input type="hidden" id="ws-route" value="@routes.WebSocketChat.socket(username).absoluteURL()"/>
+        <textarea id="chat-area" rows="30" cols="82" readonly style="background:transparent"></textarea>
+        <br>
+        <input type="text" id="chatInput" size="87" autofocus/>
+        <input type="image" src="@routes.Assets.versioned("images/paw0.png")" width="30" height="30" id="send-button"/>
+        <br>
+        <input type="image" id="spam-button" src="@routes.Assets.versioned("images/spam2.png")" width="250" height="200"/>
+        <script src="@routes.Assets.versioned("javascripts/chat.js")"></script>
+    </div>
+}

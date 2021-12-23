@@ -1,0 +1,20 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Основная страница (в контроллере - редирект.)
+GET     /                           controllers.HomeController.index
+
+# Куски из базового Play-проекта
+GET     /count                      controllers.CountController.count
+GET     /message                    controllers.AsyncController.message
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+# Куски для чата
+GET     /chat                       controllers.WebSocketChat.index
+GET     /chatSocket                 controllers.WebSocketChat.socket(username)
+# Куски для верефикации
+GET     /login                      controllers.LogInController.login
+GET     /logout                     controllers.LogInController.logout
+POST    /validateUser               controllers.LogInController.validateUser
+POST    /createUser                 controllers.LogInController.createUser

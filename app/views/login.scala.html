@@ -1,0 +1,31 @@
+@()(implicit request: RequestHeader, flash:Flash)
+
+@main("Login"){
+    @*формочка*@
+    <h2>Login Page<br><br></h2>
+    <form method="post" action="@routes.LogInController.validateUser">
+        @helper.CSRF.formField
+
+        <h2>Sign in</h2>
+        Username:<br>
+        <input type="text" name="username"/>
+        <br>
+        Password:<br>
+        <input type="password" name="password">
+        <br>
+        <input type="submit" text="submit"/>
+    </form>
+
+
+    <h2>Registration</h2>
+    <form method="post" action="@routes.LogInController.createUser">
+        @helper.CSRF.formField
+        Username:<br>
+        <input type="text" name="username"/>
+        <br>
+        Password:<br>
+        <input type="password" name="password">
+        <br>
+        <input type="submit" text="submit"/>
+    </form>
+}
