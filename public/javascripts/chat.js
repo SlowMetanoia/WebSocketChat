@@ -49,5 +49,3 @@ spamButton.onclick = ()=>{
     console.log("spamEnd")
     socket.send("spamEnd")
 }
-
-

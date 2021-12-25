@@ -134,7 +134,7 @@ textarea,input {
 }
 #chat-area{
     color:#000000;
-    font-family: "JetBrains Mono";
+    font-family: "JetBrains Mono", serif;
     font-size:medium;
 }
 #err{

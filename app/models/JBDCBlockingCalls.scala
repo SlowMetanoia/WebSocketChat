@@ -9,13 +9,33 @@ import java.time.ZonedDateTime
  * Вызовы jdbc, блокирующие поток.
  */
 object JBDCBlockingCalls {
+  //Да здравствуют монадичные конструкции!
+  def getRooms: Map[String, Set[String]] = {
+    sql"SELECT * FROM room".map{rs =>
+        rs.string("room_name")
+    }
+      .list
+      .apply
+      .map{ roomName=>
+        (
+          roomName,
+          sql"SELECT * FROM user_rooms WHERE room_name = $roomName".map{rs=>
+            rs.string("username")
+          }
+            .list
+            .apply
+            .toSet
+        )
+      }.toMap
+  }
+
   Class.forName("org.postgresql.Driver")
   ConnectionPool.singleton(
     "jdbc:postgresql://localhost:5432/SocChat",
     "SocNetOperator",
     "udhU5o51Abwa")
   implicit val session: DBSession = AutoSession
-  def getLastMessagesFromDB(n:Int,roomName:String):List[(String,ZonedDateTime,String)] = {
+  def getLastRoomMessagesFromDB(n:Int, roomName:String):List[(String,ZonedDateTime,String)] = {
     sql"SELECT * FROM message WHERE room_name = ${roomName} ORDER BY id DESC LIMIT ${n}".map{rs=>
       (
         rs.string("username"),
