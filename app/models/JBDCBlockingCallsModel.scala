@@ -8,7 +8,7 @@ import java.time.ZonedDateTime
 /**
  * Вызовы jdbc, блокирующие поток.
  */
-object JBDCBlockingCalls {
+object JBDCBlockingCallsModel {
   //Да здравствуют монадичные конструкции!
   def getRooms: Map[String, Set[String]] = {
     sql"SELECT * FROM room".map{rs =>
@@ -49,8 +49,13 @@ object JBDCBlockingCalls {
     false
   }
   def createUser(username:String,password:String):Boolean = {
-    sql"SELECT * FROM public.user WHERE username = $username".map(_=>return false).single.apply()
+    sql"SELECT * FROM public.user WHERE username = $username".map(_=>return false).single.apply
     sql"INSERT INTO public.user (username,password) VALUES ( $username , $password)".update().apply()
+    true
+  }
+  def addRoom(roomName:String):Boolean = {
+    sql"SELECT * FROM room WHERE room_name = $roomName".map(_=>return false).single.apply
+    sql"INSERT INTO room (room_name) VALUES ($roomName)".update().apply()
     true
   }
 }

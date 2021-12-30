@@ -27,6 +27,7 @@ class ChatActor(out:ActorRef,var room: ActorRef, username:String, supervisor: Ac
     case fromSocketMessage: String => handleFromSocketMessage(fromSocketMessage)
     case ChangeRoom(room) => this.room = room
     case ToSocketMessage(username,sent_time,msg) => handleToSocketMessage(username,sent_time,msg)
+    case _ => println("unhandled message in chatActor!")
   }
 }
 object ChatActor {

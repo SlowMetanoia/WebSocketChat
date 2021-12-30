@@ -1,6 +1,6 @@
 package models
 
 object db_test extends App{
-  JBDCBlockingCalls.createUser("user","password")
-  JBDCBlockingCalls.validateUser("user","password")
+  JBDCBlockingCallsModel.createUser("user","password")
+  JBDCBlockingCallsModel.validateUser("user","password")
 }

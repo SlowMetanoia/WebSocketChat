@@ -2,10 +2,10 @@ package actors
 
 import actors.ChatSupervisor._
 import akka.actor.{Actor, ActorRef, ActorSystem, Props}
-import models.JBDCBlockingCalls
+import models.JBDCBlockingCallsModel
 
 class ChatSupervisor(system:ActorSystem,db:ActorRef) extends Actor{
-  var rooms: Map[String, ActorRef] = JBDCBlockingCalls.getRooms.map{ values=>
+  var rooms: Map[String, ActorRef] = JBDCBlockingCallsModel.getRooms.map{ values=>
     values._1->
     system.actorOf(Props.create(classOf[ChatRoom], values._1, values._2, db))}
 

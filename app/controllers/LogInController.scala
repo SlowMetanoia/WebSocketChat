@@ -15,7 +15,7 @@ class LogInController @Inject()(cc: ControllerComponents)
     val (username,password):(String,String) = formData.map{args=>
       (args("username").head,args("password").head)
     }.getOrElse("wrong","wrong")
-    if(models.JBDCBlockingCalls.validateUser(username,password)){
+    if(models.JBDCBlockingCallsModel.validateUser(username,password)){
       Redirect(routes.WebSocketChat.index).withSession("username"->username).flashing("success"->s"you logged in as $username")
     } else {
       Redirect(routes.LogInController.login).flashing("error"->"wrong username/password")
@@ -26,7 +26,7 @@ class LogInController @Inject()(cc: ControllerComponents)
     val (username,password):(String,String) = formData.map{args=>
       (args("username").head,args("password").head)
     }.getOrElse("wrong","wrong")
-    if(models.JBDCBlockingCalls.createUser(username,password)){
+    if(models.JBDCBlockingCallsModel.createUser(username,password)){
       Redirect(routes.WebSocketChat.index).withSession("username"->username).flashing("success"->"user created")
     } else {
       Redirect(routes.LogInController.login).flashing("error"->"user already exists")
